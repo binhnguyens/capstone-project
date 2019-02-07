@@ -1,6 +1,6 @@
 # capstone-project
-Microcontroller - Adafruit ESP32 Feather
-Module - FONA 808
+## Microcontroller - Adafruit ESP32 Feather
+## Module - FONA 808
 
 This project is to be able to create a Smart Pad GPS for babies. 
 These files are in charge of the wireless communications of the project - using the FONA 808
