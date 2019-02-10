@@ -22,3 +22,6 @@ A file to use GPS while also connecting to the Bluetooth of the microcontroller
 
 ### FONA test 2
 Similar to the FONA test in the library, adds more seperation between the different headers
+
+### Write notify
+This program is done to connect Bluetooth Devices. The serial monitor will identify and notify the user if it is connected or not. Additionally, the Bluetooth device can communicate by writing stuff to one another. Example image is in the folder
