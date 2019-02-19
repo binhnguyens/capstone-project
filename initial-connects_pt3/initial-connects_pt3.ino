@@ -47,18 +47,18 @@ void loop() {
     {
       Serial.println("GSM connection confirmed");
       delay (1000);
-      
     }
     
     delay (500);
     t_hold = millis (); // Gets current time before entering normal loop
     Serial.println(t_hold);
 
-    
             if(bl_speaker && deviceConnected)
             {
                   while (1)
                   {
+
+                    
                       t_present = millis (); // Gets current time    
                       
                       Serial.println("Connection successful - move into while loop");    
@@ -69,7 +69,6 @@ void loop() {
                       if (t_present >=t_hold+20000)
                       {
                         Serial.println("Entering gps loop"); 
-                        
                         gps_location ();
                         retrieve_lat_lon ();
                         t_hold = t_present;
@@ -83,12 +82,13 @@ void loop() {
                       
                       
                       // Bluetooth becomes disconnected
-                      if (!bl_speaker) 
+                      ble_phone_connection_status();
+                      if (!deviceConnected) 
                       {
+                        Serial.println("Entering Bluetooth disconnection test");   
+                        delay (500);
                         alert_level =2;
                       }
-
-
 
 
                       
@@ -111,17 +111,26 @@ void loop() {
 void alert (int alert_level){
     if (alert_level == 1) // easy alert -> Baby positioned weird, something that needs to be adjusted
     {
+      delay  (1000);
+      Serial.println("Entering Easy Alert");   
       easy_alert();
+      delay (1000);
     }
 
     else if (alert_level == 2) // medium alert -> BL disconnected, Baby is not there, etc.
     {
+      delay  (1000);
+      Serial.println("Entering Medium Alert");  
       medium_alert();
+      delay  (1000);
     }
     
     else if (alert_level == 3) // hard alert -> No response from parent 
     {
+      delay  (1000);
+      Serial.println("Entering Hard Alert");  
       hard_alert();
+      delay  (1000);
     }
 }
 
@@ -147,12 +156,13 @@ void medium_alert (){
   message = "This is a medium alert - Please reset system";
   text_message (sendto, message);
   count +=1;
+  Serial.println(count);
   delay (10000);
-
+  
   if (count == 3)
     {
-        //hard_alert();      
-        //Haven't made this function
+        hard_alert();      
+        
     }
 
 
@@ -169,7 +179,10 @@ void hard_alert (){
   Serial.println("----------------------------------------------------");
   sendto = "6477162554";
   headphone_jack ();
-  phonecall (sendto); 
-}
+  phonecall (sendto);
+  delay (100000);
 
+  
+   
+}
 
