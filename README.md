@@ -1,4 +1,4 @@
-# capstone-project
+# Capstone Project 2019
 ## Microcontroller - Adafruit ESP32 Feather
 ## Module - FONA 808
 
@@ -13,6 +13,27 @@ This project aims to design a portable smart pad mountable to standard car seats
 
 
 # Files
+### Initial Connect
+This will be the file in which the will be continuously worked on. Currently, Bluetooth can be initially connected to a phone, and Bluetooth speakers, simulatensouly. The initiation of the GSM and GPS networks are done at the beginning. These steps are done so the phone and speakers can connect to the microcontroller before entering an infinite loop to check connections.
+
+Theorectically, the user would have to connect their devices before the device could start operating. In the operating phase, there are various conditions to be check to make sure the saftey of the baby is prioritized. This is all done simultaneously receiving and saving GPS locations every few moments. 
+
+There are three alerts created: Easy, Medium and Hard.
+
+#### Easy Alert
+Bluetooth speakers will output a generic warning to check baby if the conditions are satisfied below:
+If the position of the baby is awkward
+If the baby wet itself
+
+#### Medium Alert
+Text messages will be sent to parents' phones during medium alert due to the various conditions listed below:
+If the Bluetooth connection is disconnected
+If the head of the baby is leaned forward (causing danger to the baby to the its disproptionate body)
+
+#### Hard Alert 
+Phone call to emergency personel conducted. An emergency audio will play, alongside with the last known GPS location.
+
+
 ### GPS_and_GSM_Location
 In this file, I am constantly working on this to be able to feed a location.
 The location is derived from the GPS of the FONA 808. If the GPS is not able to retrieve a fix (due to being indoors or bad signal), the GSM module will use triangulation to be able to identify the location.
