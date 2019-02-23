@@ -25,7 +25,7 @@
 
 boolean bl_speaker = false; // global variable for bl speakers
 bool phoneconnect = false; // global variable for bl phone
-
+int trig = 0; // global variable for trigger 
 
 BLEServer* pServer = NULL;
 BLECharacteristic* pCharacteristic = NULL;
@@ -45,11 +45,6 @@ uint32_t value = 0;
 
 TimerHandle_t tmr;
 int m_sample = 0;
-
-
-
-
-
 
 extern "C" {
     #include "soc/timer_group_struct.h"
@@ -200,16 +195,6 @@ void ble_phone_connection_status()
 }
 
 
-
-
-
-
-
-
-
-
-
-
 // FROG
 // Bluetooth start up to be called in main function
 // This sets up the BLE for phone and BL for speaker connections 
@@ -286,8 +271,6 @@ void bluetooth_startup() {
   bt_app_work_dispatch(bt_av_hdl_stack_evt, BT_APP_EVT_STACK_UP, NULL, 0, NULL);
 
 
-  
-
 /************ Tien initalize the SD card and a bunch of other crap ************/
 /*
   pinMode(21, OUTPUT);
@@ -340,31 +323,6 @@ void bluetooth_startup() {
 
 */
 } // end set up
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /****** Tien's code to connect shit to Speakers*******/
@@ -640,6 +598,8 @@ static void bt_app_av_state_connecting(uint16_t event, void *param)
     }
 }
 
+//Frog
+//Trigger is set here
 static void bt_app_av_media_proc(uint16_t event, void *param)
 {
     esp_a2d_cb_param_t *a2d = NULL;
@@ -651,10 +611,12 @@ static void bt_app_av_media_proc(uint16_t event, void *param)
         } else if (event == ESP_A2D_MEDIA_CTRL_ACK_EVT) {
             a2d = (esp_a2d_cb_param_t *)(param);
             if (a2d->media_ctrl_stat.cmd == ESP_A2D_MEDIA_CTRL_CHECK_SRC_RDY &&
-                    a2d->media_ctrl_stat.status == ESP_A2D_MEDIA_CTRL_ACK_SUCCESS) {
+                    a2d->media_ctrl_stat.status == ESP_A2D_MEDIA_CTRL_ACK_SUCCESS && trig != 0) {
                 ESP_LOGI(BT_AV_TAG, "a2dp media ready, starting ...");
                 esp_a2d_media_ctrl(ESP_A2D_MEDIA_CTRL_START);
                 m_media_state = APP_AV_MEDIA_STATE_STARTING;
+            } else {
+                m_media_state = APP_AV_MEDIA_STATE_IDLE;
             }
         }
         break;
@@ -693,8 +655,8 @@ static void bt_app_av_media_proc(uint16_t event, void *param)
                     a2d->media_ctrl_stat.status == ESP_A2D_MEDIA_CTRL_ACK_SUCCESS) {
                 ESP_LOGI(BT_AV_TAG, "a2dp media stopped successfully, disconnecting...");
                 m_media_state = APP_AV_MEDIA_STATE_IDLE;
-                esp_a2d_source_disconnect(peer_bda);
-                m_a2d_state = APP_AV_STATE_DISCONNECTING;
+                //esp_a2d_source_disconnect(peer_bda);
+                m_a2d_state = APP_AV_STATE_CONNECTED;
             } else {
                 ESP_LOGI(BT_AV_TAG, "a2dp media stopping...");
                 esp_a2d_media_ctrl(ESP_A2D_MEDIA_CTRL_STOP);
