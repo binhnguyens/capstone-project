@@ -13,15 +13,15 @@ This project aims to design a portable smart pad mountable to standard car seats
 
 
 # Files
-### Initial Connect
-This will be the file in which the will be continuously worked on. Currently, Bluetooth can be initially connected to a phone, and Bluetooth speakers, simulatensouly. The initiation of the GSM and GPS networks are done at the beginning. These steps are done so the phone and speakers can connect to the microcontroller before entering an infinite loop to check connections.
+### Phase 3
+This will be the file in which the will be continuously worked on. Currently, Bluetooth can be initially connected to a phone, and Bluetooth speakers, simulatensouly. The initiation of the GSM and GPS networks are done at the beginning. These steps are done so the phone and speakers can connect to the microcontroller before entering an infinite loop to check connections. Furthermore, the hardware components are attached. The hardware component includes sensors to detect positioning of the baby. If at any moment, certain sensors are activated, a in-built algorithm activates and causes a soft alert. 
 
 Theorectically, the user would have to connect their devices before the device could start operating. In the operating phase, there are various conditions to be check to make sure the saftey of the baby is prioritized. This is all done simultaneously receiving and saving GPS locations every few moments. 
 
 There are three alerts created: Easy, Medium and Hard.
 
 #### Easy Alert
-Bluetooth speakers will output a generic warning to check baby if the conditions are satisfied below:
+Bluetooth speakers will output a specific warning to check baby if the conditions are satisfied below:
 If the position of the baby is awkward
 If the baby wet itself
 
@@ -46,3 +46,6 @@ Similar to the FONA test in the library, adds more seperation between the differ
 
 ### Write notify
 This program is done to connect Bluetooth Devices. The serial monitor will identify and notify the user if it is connected or not. Additionally, the Bluetooth device can communicate by writing stuff to one another. Example image is in the folder
+
+### Initial Connect 
+This program was the previously worked on code that combined Bluetooth, GSM and GPS
