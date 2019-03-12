@@ -17,25 +17,23 @@ TaskHandle_t BlinkLED;
 void setup() {
   // put your setup code here, to run once:
 
-  //pinMode(A5, INPUT);
-  
   delay (250);
   bluetooth_startup();
-  
+
   delay(2000);
   init_SD();
-  
+
   delay (2000);
   Fona808_intial();
-  
+
   delay (2000);
   Fona808_connect ();
-  
+
   delay (2000);
   sensor_act_begin ();
-  
+
   delay (250);
-  
+
 }
 
 
@@ -50,30 +48,34 @@ void loop() {
   initial_connections ();
   delay (500);
 
-  // Gets current time before entsering normal loop
+  // Gets current time before entering normal loop
   t_hold = millis ();
   Serial.println(t_hold);
 
-  if (bl_speaker) //(bl_speaker && deviceConnected)
+  if (deviceConnected) //(bl_speaker && deviceConnected)
   {
 
     while (1)
     {
 
-
       t_present = millis (); // Gets current time
       delay (500);
-      
+
+      // Hardware Component
+      //Remove comments
       sensor_act_main_obtain ();
+      delay(500);
       ReadSensCode();
-      
+
       delay (500);
       Serial.println("Connection successful - move into while loop");
-      delay (3000);
+      delay (500);
       alert_level = alert (alert_level);
 
+
+
       // Find the GPS every 20 Seconds
-      if (t_present >= t_hold + 20000)
+      if (t_present >= t_hold + 70000)
       {
         Serial.println("Entering gps loop");
         gps_location ();
@@ -86,42 +88,48 @@ void loop() {
       }
 
 
-      
-        // Easy Alert
-        if (bl_message)
-        {
-        bl_message = false; // Goes into loop and then cancels to avoid infinite loop
-        Serial.println("*************Entering Bluetooth Speaker disconnection test*************");
-        delay (500);
-        filename_value (2);
-        alert_level = 1;
-        delay (500);
-        }
 
-      
-      /*
+
       // Easy Alert
       if (bl_message)
       {
         bl_message = false; // Goes into loop and then cancels to avoid infinite loop
-        Serial.println("*************Entering Bluetooth Speaker disconnection test*************");
+        Serial.println("*************Entering Bluetooth disconnection test*************");
         delay (500);
-
-        lat = "43.710268";
-        for (i = 0; i < 6; i++)
-        {
-          case_statement_audio_files (lat[i]);
-        }
-
+        filename_value (2);
+        alert_level = 1;
         delay (500);
-        Serial.println("Post Audio File Play"); //  test to see when this gets outputted
       }
 
+
+
+      /*
+          // Easy Alert
+          if (bl_message)
+          {
+            bl_message = false; // Goes into loop and then cancels to avoid infinite loop
+            Serial.println("*************Entering Bluetooth  disconnection test*************");
+            delay (500);
+
+            lat = "43.710268";
+            for (i = 0; i < 6; i++)
+            {
+              case_statement_audio_files (lat[i]);
+            }
+            delay (500);
+
+            char filename_phonecall1[27] = "/sdcard/initTest.wav"; // Initial Announcement
+            play_audio (filename_phonecall1);
+
+            delay (500);
+            Serial.println("Post Audio File Play"); //  test to see when this gets outputted
+          }
       */
+
 
       // Medium Alert
       // Bluetooth becomes disconnected
-      
+
       ble_phone_connection_status();
       if (!deviceConnected)
       {
@@ -129,6 +137,7 @@ void loop() {
         delay (500);
         alert_level = 2;
       }
+
 
 
       delay (1);
@@ -165,12 +174,13 @@ void  initial_connections ()
   }
 
   /****** GPS and GSM connections ******/
-  if (!gsmnetwork)
-  {
+  
+    if (!gsmnetwork)
+    {
     Serial.println("GSM connection confirmed");
     delay (1000);
-  }
-
+    }
+  
 }
 
 

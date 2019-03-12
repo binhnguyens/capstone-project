@@ -1,7 +1,6 @@
 #ifndef _SD_CARD_H
 #define _SD_CARD_H
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -40,6 +39,7 @@
 
 void init_SD ()
 {
+  
   ESP_LOGI(TAG, "Initializing SD card");
 
 #ifndef USE_SPI_MODE
