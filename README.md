@@ -12,7 +12,16 @@ Infant/Toddler car seats and strollers are essential part of mobility and safety
 This project aims to design a portable smart pad mountable to standard car seats and strollers, which can detect  multi-channel information on baby posture, wetness, temperature, Carbon Monoxide content in the vehicle and GPS location. The information is fed to an intelligent system able to send alarms or warnings on car audio or parents cell phones. In cases where a child is left unattended for an extended period of time, the smart pad is able to contact emergency staff and leave a voice recording explaining the situation and a GPS location. 
 
 
-# Files
+# Documents
+### Final
+Final folder contains the final files used for the capstone.
+
+### Demo 
+Attached are videos of our demos:
+Demo 1: https://www.youtube.com/watch?v=FvuG59Sc1oY
+
+Demo 2: https://www.youtube.com/watch?v=KJ0yU8TvkYo
+
 ### Phase 3
 This will be the file in which the will be continuously worked on. Currently, Bluetooth can be initially connected to a phone, and Bluetooth speakers, simulatensouly. The initiation of the GSM and GPS networks are done at the beginning. These steps are done so the phone and speakers can connect to the microcontroller before entering an infinite loop to check connections. Furthermore, the hardware components are attached. The hardware component includes sensors to detect positioning of the baby. If at any moment, certain sensors are activated, a in-built algorithm activates and causes a soft alert. 
 
