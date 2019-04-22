@@ -18,6 +18,7 @@ Final folder contains the final files used for the capstone.
 
 ### Demo 
 Attached are videos of our demos:
+
 Demo 1: https://www.youtube.com/watch?v=FvuG59Sc1oY
 
 Demo 2: https://www.youtube.com/watch?v=KJ0yU8TvkYo
